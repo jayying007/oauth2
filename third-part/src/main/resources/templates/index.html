@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+    <script>
+        window.onload=function(){
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8083/user/info",
+                success: function (msg) {
+                    console.log(msg)
+                    $("#userinfo").html(msg.name + "\n" + msg.gender + "\n" + msg.hobby);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<h1>Welcome</h1>
+    <div>
+        <div id="userinfo"></div>
+        <div>login success</div>
+    </div>
+</body>
+</html>

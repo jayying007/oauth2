@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+<h1>Login Page</h1>
+<div class="phone">
+    <div>
+        <label>Username<input type="text" name="username" value=""></label><br>
+        <label>Password<input type="text" name="password" value=""></label><br>
+        <br>
+        <button onclick="login()">授权登录</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+<script>
+    function login() {
+        let username = document.getElementsByName("username")[0].value
+        let password = document.getElementsByName("password")[0].value
+        console.log(username + ":" + password)
+
+        let user = {}
+        user['username'] = username
+        user['password'] = password
+
+        let url = "http://127.0.0.1:8081/user/login?";
+        //获取url参数
+        let query = window.location.search.substring(1)
+        let vars = query.split("&")
+        for(let i = 0; i < vars.length; i++) {
+            let param = vars[i].split("=")
+            url = url + param[0] + "=" + param[1]
+            if(i !== vars.length - 1) {
+                url = url + "&"
+            }
+        }
+        console.log("url:" + url)
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType:"application/json;charset=utf-8",
+            data: JSON.stringify(user),
+            success: function (msg) {
+                console.log(msg)
+                if(msg.msg === "success") {
+                    window.location.href = msg.data
+                }
+            }
+        });
+    }
+</script>
+</html>

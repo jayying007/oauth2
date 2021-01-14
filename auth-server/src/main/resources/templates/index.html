@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+<div>
+    <label>应用名称<input type="text" name="appName" value=""></label>
+    <label>回调地址<input type="text" name="callBackUrl" value=""></label>
+    <button onclick="addAuth()">添加</button>
+</div>
+<h4>客户端列表</h4>
+<table>
+    <tr><td>No.</td><td>app_name</td><td>callback_url</td><td>app_id</td><td>app_secret</td></tr>
+    <tr th:each="auth,memberStat:${allAuths}">
+        <td th:text="${memberStat.index + 1}"></td>
+        <td th:text="${auth.appName}"></td>
+        <td th:text="${auth.callBackUrl}"></td>
+        <td th:text="${auth.appId}"></td>
+        <td th:text="${auth.appSecret}"></td>
+    </tr>
+</table>
+
+</body>
+<script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+<script>
+    function addAuth() {
+        let appName = document.getElementsByName("appName")[0].value
+        let callBackUrl = document.getElementsByName("callBackUrl")[0].value
+        console.log(appName + ":" + callBackUrl)
+
+        let auth = {}
+        auth['appName'] = appName
+        auth['callBackUrl'] = callBackUrl
+
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8081/auth/new",
+            contentType:"application/json;charset=utf-8",
+            data: JSON.stringify(auth),
+            success: function (msg) {
+                console.log(msg)
+            }
+        });
+    }
+</script>
+</html>

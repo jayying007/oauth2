@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>豆瓣网</title>
+    <script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+    <script>
+        function login() {
+            alert("暂时没有实现该功能，请用其他方式登录")
+        }
+        /**
+         * 用户访问客户端，后者将前者导向认证服务器，即跳转到登录页面
+         */
+        function leadToAuthorize() {
+            window.location.href="http://127.0.0.1:8083/login/third_part"
+        }
+    </script>
+</head>
+<body>
+<h1>登录页面</h1>
+    <div>
+        <label>Username<input type="text" name="username" value=""></label><br>
+        <label>Password<input type="text" name="password" value=""></label><br>
+        <br>
+        <button onclick="login()">立即登录</button>
+        <button onclick="leadToAuthorize()">使用QQ账号登录</button>
+    </div>
+</body>
+</html>
